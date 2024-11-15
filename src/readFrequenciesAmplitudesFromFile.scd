@@ -32,7 +32,7 @@ readFile = {
 SynthDef(\playDamped, { |freq = 440, amp = 0.5|
     Out.ar(0, SinOsc.ar(freq) * EnvGen.kr(Env([amp, 0], [duration], [deccayR]), doneAction: 2)!2);
 }).add;
-
+// s.sync; // wait for buffer running
 startRoutine = {
     var routine, group;
 
