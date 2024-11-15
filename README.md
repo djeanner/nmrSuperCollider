@@ -7,7 +7,7 @@ This project demonstrates how to dynamically read frequencies and amplitudes fro
 - Dynamically reads frequencies and amplitudes from a text file (`list1.txt`).
 - Plays the sounds using SuperCollider's `Synth` objects.
 - Automatically updates playback when the file content changes.
-
+ 
 ---
 
 ## Installation
