@@ -79,7 +79,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Author
 
-Created by Damien Jeannerat. Feel free to reach out for collaboration or questions.
+Created by Damien J. in collaboration with Vincent H. Feel free to reach out for collaboration or questions.
 
 ---
 
