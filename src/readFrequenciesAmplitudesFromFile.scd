@@ -1,6 +1,12 @@
 (
 var filepath, freqAmpPairs, activeSynths, readFile, startRoutine, duration, deccayR;
-
+s.waitForBoot({
+	Buffer.freeAll;
+~folder = PathName.new("/Users/vinz/Desktop/sp/sndzB/");
+~sndz = ~folder.entries.collect({
+	arg i;
+	Buffer.readChannel(s, i.fullPath, channels: [0]);
+});
 // point to the list of frequency file
 filepath = "/Users/djeanner/kDrive/superCollider/list1.txt";
 
@@ -32,7 +38,9 @@ readFile = {
 SynthDef(\playDamped, { |freq = 440, amp = 0.5|
     Out.ar(0, SinOsc.ar(freq) * EnvGen.kr(Env([amp, 0], [duration], [deccayR]), doneAction: 2)!2);
 }).add;
-// s.sync; // wait for buffer running
+	s.sync;
+
+// s.sync; // wait for buffer running in Routine({}) or s.waitForBoot(
 startRoutine = {
     var routine, group;
 
@@ -58,6 +66,7 @@ startRoutine = {
     "New routine started.".postln;
 };
 
-// Start the routine
 startRoutine.value;
+
+});
 )

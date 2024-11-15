@@ -25,8 +25,7 @@ This project demonstrates how to dynamically read frequencies and amplitudes fro
    - Open `src/readFrequenciesAmplitudesFromFile.scd` in SuperCollider.
    - Ensure the `data/list1.txt` file contains frequency-amplitude pairs (see the format below).
    - Fix the path of the source file at line 5 of the `.scd` file.
-   - In SuperCollider start a sever in the "Server" tab, select "Boot server".
-
+   - Run the content with the menu tab `Language` / `evalue file`.
 ---
 
 ## Usage
