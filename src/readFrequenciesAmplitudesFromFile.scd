@@ -1,17 +1,18 @@
 (
-var filepath, freqAmpPairs, activeSynths, readFile, startRoutine, duration, deccayR, window, freqShift, maxFreq, minFreq, freqShiftBox, minFreqBox, maxFreqBox;
+var filepath, freqAmpPairs, activeSynths, readFile, startRoutine, duration, deccayR, window, freqShift, maxFreq, minFreq, freqShiftBox, minFreqBox, maxFreqBox, shortDuration;
 s.waitForBoot({
 	Buffer.freeAll;
 
 
 
 // point to the list of frequency file
-filepath = "/Users/djeanner/kDrive/superCollider/list1.txt";
+filepath = "/Users/djeanner/git/nmrSuperCollider/data/list1.txt";
 
 freqAmpPairs = [];
 activeSynths = [];
-duration = 5; // duration of the sound
-deccayR = 3.5; // coef of the deccay - Relaxation time
+duration = 20; // duration of the sound
+shortDuration = 2;
+deccayR = -10.0; // coef of the deccay - Relaxation time
 freqShift = 0.0;
 // Function to read the file
 readFile = {
@@ -40,49 +41,39 @@ SynthDef(\playDamped, { |freq = 440, amp = 0.5|
 
 // s.sync; // wait for buffer running in Routine({}) or s.waitForBoot(
 startRoutine = {
-    var routine, group;
+    var routine, group, groupLifetime;
 
-    // Create a group for managing Synths
-    group = Group.new(s);
+    groupLifetime = duration * 10; // Define the lifetime of each group
 
     routine = Routine({
         loop {
             readFile.value;
 
-            // Free all Synths in the group
-            group.freeAll;
+            // Create a new group for managing Synths
+            group = Group.new(s);
 
-
-		/*
-
-				  // Free existing synths
-       activeSynths.do { |synth| synth.free; };
-       activeSynths.clear;
-
-       // Spawn new synths for selected frequencies
-       freqAmpPairs.do { |pair|
-           var shiftedFreq = pair[0] + freqShift;
-           if (shiftedFreq >= minFreq and: shiftedFreq <= maxFreq) {
-               activeSynths.add(Synth(\playFreqs, [\freq, shiftedFreq, \amp, pair[1]]));
-           }
-       };
-			*/
-
+            // Schedule the group to free after its lifetime
+            SystemClock.sched(groupLifetime, {
+                group.free;
+                "Group freed after ".post; groupLifetime.postln;
+            });
 
             // Create new Synths for the current frequencies
             freqAmpPairs.do { |pair|
-					           var shiftedFreq = pair[0] + freqShift;//freqShift;
-if ((shiftedFreq >= minFreq) and: (shiftedFreq <= maxFreq)) {
-                Synth(\playDamped, [\freq, shiftedFreq, \decdayCoef , deccayR ,\amp, pair[1],  duration], group);
-					}
+                var shiftedFreq = pair[0] + freqShift;
+                if ((shiftedFreq >= minFreq) and: (shiftedFreq <= maxFreq)) {
+                    Synth(\playDamped, [\freq, shiftedFreq, \amp, pair[1], \duration, duration, \deccayR, deccayR], group);
+                }
             };
 
-            duration.wait;  // Wait for duration second
+            shortDuration.wait; // Wait for a small duration before the next loop iteration
         }
     }).play;
 
     "New routine started.".postln;
 };
+
+
 
 startRoutine.value;
  // GUI for controlling frequency range and shift
