@@ -2,7 +2,7 @@
 var filepath, freqAmpPairs, activeSynths, readFile, startRoutine, duration, deccayR, window, freqShift, maxFreq, minFreq, freqShiftBox, minFreqBox, maxFreqBox, shortDuration, deccayRBox, shortDurationBox;
 s.waitForBoot({
 	Buffer.freeAll;
-
+////////////// zazzou
 
 
 // point to the list of frequency file
