@@ -3,7 +3,8 @@ var filepath, freqAmpPairs, activeSynths, readFile, startRoutine, duration, decc
 s.waitForBoot({
 	Buffer.freeAll;
 
-
+//////////////////////////////////////////////////////////////////
+////////////////////////// test changement ///////////////////////
 
 // point to the list of frequency file
 filepath = "/Users/djeanner/git/nmrSuperCollider/data/list1.txt";
