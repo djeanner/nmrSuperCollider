@@ -4,7 +4,7 @@ Server.default.options.memSize = 2.pow(20);  // + de mémoire pour les comb et a
 //////////////////////////////////// 47 harmoniques //////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
 s.waitForBoot({
-
+//del
 var nbSliders = 18,
     startValues = [             // valeurs iter au début
 	110.explin(20, 1000, 0, 1),   //freq             0
