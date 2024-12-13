@@ -8,6 +8,7 @@ s.waitForBoot({
 // point to the list of frequency file
 filepath = "/Users/djeanner/git/nmrSuperCollider/data/list1.txt";
 
+
 freqAmpPairs = [];
 activeSynths = [];
 duration = 25; // duration of the sound
