@@ -1,4 +1,3 @@
- # echo "	peak.delta(), "\t", peak.intensity, "\t", peak.width() * freq, "\t", peak.integralInPts(spec), "
 import os
 import sys
 
@@ -17,10 +16,13 @@ def process_file(filename, min_second_column_value, larmor):
         # Check if there are at least two columns
         if len(columns) >= 2:
             try:
-                # Append the first column value multiplied by larmor
-                first_column_values.append(float(columns[0]) * larmor)
-                # Append the second column value
-                second_column_values.append(float(columns[1]))
+                # Check if the first column value is non-negative
+                if float(columns[0]) >= 0:
+                    # Append the first column value multiplied by larmor
+                    first_column_values.append(float(columns[0]) * larmor)
+                    # Append the second column value
+                    second_column_values.append(float(columns[1]))
+
             except ValueError:
                 print(f"Skipping line: {line.strip()} (non-numeric value in first or second column)")
 
@@ -41,7 +43,7 @@ def process_file(filename, min_second_column_value, larmor):
     for first_column_value, rescaled_second_column_value in zip(first_column_values, rescaled_second_column_values):
         if rescaled_second_column_value >= min_second_column_value:
             filtered_first_column_values.append(first_column_value)
-            filtered_rescaled_second_column_values.append(rescaled_second_column_value / 100.0)
+            filtered_rescaled_second_column_values.append(rescaled_second_column_value)
     # Check if there are any lines left after filtering
     if not filtered_rescaled_second_column_values:
         print(f"No lines left in file {filename} after filtering by minimum second column value {min_second_column_value}.")
