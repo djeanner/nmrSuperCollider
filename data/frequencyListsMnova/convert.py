@@ -41,7 +41,7 @@ def process_file(filename, min_second_column_value, larmor):
     for first_column_value, rescaled_second_column_value in zip(first_column_values, rescaled_second_column_values):
         if rescaled_second_column_value >= min_second_column_value:
             filtered_first_column_values.append(first_column_value)
-            filtered_rescaled_second_column_values.append(rescaled_second_column_value)
+            filtered_rescaled_second_column_values.append(rescaled_second_column_value / 100.0)
     # Check if there are any lines left after filtering
     if not filtered_rescaled_second_column_values:
         print(f"No lines left in file {filename} after filtering by minimum second column value {min_second_column_value}.")
